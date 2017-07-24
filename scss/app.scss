@@ -1,0 +1,15 @@
+@import './components/DayLog';
+@import './assets/mixin';
+@import './components/Head';
+@import './components/Result';
+
+html, body {height: 100%;}
+
+html {
+    direction: rtl;
+    font-family: "IRAN-Yekan-Web,IRAN-Web,'IranSans','Segoe UI', 'Helvetica', 'Arial', sans-serif";
+}
+body{
+    width:100%;    
+    background: $violet-1-op-2;
+}

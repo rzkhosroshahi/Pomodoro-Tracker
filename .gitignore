@@ -1,0 +1,15 @@
+## osX
+*.DS_Store
+
+## dependencies
+node_modules
+
+## locally files
+js/source/assets/Shamsi.js
+js/source/components/Test.js
+.sass-cache
+app.css.map
+package-lock.json
+
+## fonts
+fonts

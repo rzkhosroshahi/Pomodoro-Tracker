@@ -1,0 +1,128 @@
+/* Result.scss */
+
+$height-column:ms(23);
+$width-column:ms(13);
+
+.Result-back{
+    margin: ms(1) 0;
+    padding: ms(-5) ms(12);    
+    .Result-column{
+        position: relative;
+        display: inline-block;
+        margin-right: ms(-10);
+        margin-top: ms(1);
+        width: $width-column;
+        height: $height-column;
+
+    .Result-visual{
+        position: absolute;
+        bottom: 0;
+        width: $width-column;
+        background: $green-1;
+        @include tr(all .4s ease);
+        @include border-radius(0);
+
+
+        &:hover,&:focus{
+            height: ms(20);
+            @include prefix((
+                box-shadow: 0rem 0rem 1rem 0rem rgba(48,48,48,.7)
+            ),webkit moz o);
+            background: linear-gradient(to bottom, #2be28a, $green-2); 
+
+        }
+    }
+    .Result-box{
+        display: block;
+        height: $height-column;
+        direction: ltr;  
+        @include tr(background .4s ease);
+        @include border-radius(ms(-10));
+
+
+        background: rgba(255, 255, 255, 0.8);
+        border: .1rem solid  rgba(255, 255, 255, 0.1);
+
+        overflow: hidden;
+        .Result-text{
+            position: relative;
+            top: - ms(-4);
+            left:ms(-8);
+            width: 60%;
+            display: inline-block;
+            text-align: left;
+            font-size: ms(8);
+
+
+            color:rgba(172, 170, 170, 0.4);
+            @include tr(color .4s ease);
+            @include prefix((
+                user-select: none
+            ),webkit moz o);
+            
+        }
+        .Result-edit{
+            position: relative;
+            width: 40%;
+            display: inline-block;
+            font-size: ms(3);
+            text-align: center;
+            @include tr(color .4s ease);
+            @include prefix((
+                user-select: none
+            ),webkit moz o);
+            cursor: pointer;
+            span{
+                opacity: 0;
+            }
+            .inc{
+                color:#ccc;
+                height: ms(5);
+                display: block;
+            &:hover,&:focus{
+                color: $blue-1;
+                }
+            }
+            .dec {
+                display: block;
+                color:#ccc;
+                    
+            &:hover,&:focus{
+                color: $pink-1;
+            }
+            }
+
+
+        }
+
+    }
+    p{
+        text-align: center;
+        color:#fff;
+        font-size: ms(-2);
+        text-shadow: .1rem .1rem .2rem $violet-1-op;
+    }
+    &:hover .Result-box,
+    &:focus .Result-box,
+        {
+            background: #fff;
+            .Result-text,
+            {
+                color:#333;
+
+            }
+        }
+    &:hover .Result-box .Result-edit  span,
+    &:focus .Result-box .Result-edit span,{
+        opacity: 1;
+        }
+    }
+
+}
+
+.today{
+    background: $pink-1-op !important;
+    &:hover{
+        background: $pink-1 !important;
+    }
+}

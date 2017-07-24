@@ -1,0 +1,101 @@
+@import 'reset';
+@import './_modularscale.scss';
+@import './style.scss';
+
+
+
+$modularscale: (
+  base: 1rem,
+  ratio: 1.125
+);
+
+
+
+
+//border radius
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+       -o-border-radius: $radius;
+          border-radius: $radius;
+}
+@mixin tr($arg...){
+  -webkit-transition: $arg;
+     -moz-transition: $arg;
+      -ms-transition: $arg;
+       -o-transition: $arg;
+          transition: $arg;
+}
+//mixin for supoort browsers
+@mixin prefix($declarations, $prefixes: ()) {
+  @each $property, $value in $declarations {
+    @each $prefix in $prefixes {
+      #{'-' + $prefix + '-' + $property}: $value;
+    }
+
+    #{$property}: $value;
+  }
+}
+// @include prefix((
+//     user-select:none
+// ),webkit moz o);
+
+//PX to Rem calaculator
+@function pxToRem($value) {
+	@return ($value / 16 ) + rem;
+}
+
+
+//For About me page
+@mixin imgSize($val) {
+	width: pxToRem($val);
+	height: pxToRem($val);
+}
+//after & before shows
+@mixin afterbf {
+	display: block;
+	content: ' ';
+}
+//float classes
+.float-right{
+	float: right;
+}
+.float-left{
+	float: left;
+}
+
+//.clearfix
+.clearFix{
+	&::after{
+		content: ' ';
+		display: block;
+		clear: both;
+	}
+}
+
+@function scaleEm($value) {
+	@if $value == 0 {@return 1em;}
+	@else if $value == 1 {@return 1.618em;;}
+	@else if $value == 2 {@return 2.61em;}
+	@else if $value == 3 {@return 4.236em;}
+	@else if $value == 4 {@return 6.854em;}
+	@else if $value == -1 {@return 0.618em;}
+	@else if $value == -2 {@return 0.382em;}
+	@else if $value == -3 {@return 0.236em;}
+}
+@function scaleRem($value) {
+	@if $value == 0 {@return 1rem;}
+	@else if $value == 1 {@return 1.618rem;;}
+	@else if $value == 2 {@return 2.618rem;}
+	@else if $value == 3 {@return 4.236rem;}
+	@else if $value == 4 {@return 6.854rem;}
+	@else if $value == 5 {@return 7.472rem;}
+	@else if $value == -1 {@return 0.618rem;}
+	@else if $value == -2 {@return 0.382rem;}
+	@else if $value == -3 {@return 0.236rem;}
+}
+$golden-scale:0.618rem;
+@function scale($value) {
+	@return  $value / 16 + $golden-scale;
+}

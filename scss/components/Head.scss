@@ -1,0 +1,100 @@
+/* Head.scss */
+@import '../assets/mixin';
+
+header{
+    padding: ms(-1) ms(14);
+    h2{
+    display: inline-block;
+        
+    font-size: ms(6);
+    color:#FFFFFF;
+    }   
+}
+.leftSections{
+    float: left;
+    padding: ms(1) 0;
+} 
+.monthNavigate{
+    display: none;
+    float:right;
+    margin-left: ms(7);
+    span{
+        display: inline-block;
+        border-style: solid;
+        width: 0;
+        height: 0;
+        cursor: pointer;
+    }
+    .next{
+        position: absolute;
+        margin-top: -.3rem;
+        border-width: 0 ms(-8) ms(-8) ms(-8);
+
+
+        border-color:transparent transparent $pink-1-op transparent ;
+        &:hover{
+            border-color:transparent transparent $pink-1 transparent ;
+        }
+    }
+    .previous{
+        position: absolute;
+        margin-top: .3rem;
+        
+        border-width: ms(-8) ms(-8) 0 ms(-8);
+        border-color:$pink-1-op transparent transparent;
+        &:hover{
+            border-color:$pink-1 transparent  transparent;
+            
+        }
+    }   
+}
+.setting{
+    position: relative;
+    float:left;
+    cursor: pointer;
+    &:after{
+        position: relative;
+        top: -.8rem;
+        left: .8rem;
+        display: inline-block;
+        content: " ";
+        width: ms(-25);
+        height: 1.3rem;
+        opacity: .5;
+    }
+    span{
+        display: block;
+        width: ms(-8);
+        height: ms(-8);
+        @include border-radius(100%);
+        background: $pink-1-op;
+        
+        &::after,&::before{
+            position: absolute;
+            content: " ";
+            width: ms(-8);
+            height: ms(-8);
+            @include border-radius(100%);
+            background: $pink-1-op;
+        }
+        &::after{
+            margin-top:-.5rem;
+        }
+        &::before{
+            margin-top: .5rem;
+        }
+    }
+        &:hover span,
+        &:hover span::after,
+        &:hover span::before
+        {
+            background: $pink-1;
+        }
+}
+.hr{
+    display: block;
+    height: ms(-25);
+    margin-right: ms(14);
+    background: -webkit-linear-gradient(bottom right, #1d2b64, transparent);
+
+}    
