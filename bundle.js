@@ -469,7 +469,7 @@ var Result = function (_React$Component) {
                             { className: 'Result-back', key: i + 1 },
                             data[i]['days'].map(function (day, idx) {
                                 todayCheck(i, idx);
-                                return _react2.default.createElement(_ResultBox2.default, { key: idx, days: day, today: today, ofWeek: data[i]['ofWeek'][idx] });
+                                return _react2.default.createElement(_ResultBox2.default, { key: idx, cell: i, row: idx, days: day, today: today, ofWeek: data[i]['ofWeek'][idx] });
                             })
                         )
                     );
@@ -541,8 +541,41 @@ var ResultBox = function (_React$Component) {
             return val.toLocaleString('fa');
         }
     }, {
+        key: 'checkLocal',
+        value: function checkLocal() {
+            if (!localStorage.getItem('' + (this.props.cell + " " + this.props.row))) {
+                localStorage.setItem('' + (this.props.cell + " " + this.props.row), JSON.stringify({ value: 1, visual: 1.49 }));
+                return true;
+            }
+        }
+    }, {
+        key: 'getToLocal',
+        value: function getToLocal() {
+            var data = localStorage.getItem('' + (this.props.cell + " " + this.props.row));
+            return JSON.parse(data);
+        }
+    }, {
+        key: 'setToLocal',
+        value: function setToLocal(val, vis) {
+            localStorage.setItem('' + (this.props.cell + " " + this.props.row), JSON.stringify({ value: val, visual: vis }));
+        }
+    }, {
         key: 'increaseValue',
         value: function increaseValue() {
+
+            // as there is not data for 'this' 
+            if (!this.checkLocal()) {
+                var value = this.getToLocal().value;
+                var visual = this.getToLocal().visual;
+                if (value !== 12) {
+                    value += 1;
+                    visual += 0.87;
+
+                    this.setToLocal(value, visual);
+                } else return;
+            } else {
+                this.checkLocal();
+            }
             if (this.state.value !== conf.goal) {
                 this.setState({
                     value: this.state.value + 1,
@@ -554,6 +587,16 @@ var ResultBox = function (_React$Component) {
     }, {
         key: 'decreaseValue',
         value: function decreaseValue() {
+            var value = this.getToLocal().value;
+            var visual = this.getToLocal().visual;
+
+            if (value !== 0) {
+                value -= 1;
+                visual -= 0.87;
+
+                this.setToLocal(value, visual);
+            } else return;
+
             if (this.state.value !== 0) {
                 this.setState({
                     value: this.state.value - 1,
@@ -574,7 +617,7 @@ var ResultBox = function (_React$Component) {
                     _react2.default.createElement(
                         'span',
                         { className: 'Result-text' },
-                        this.toFarsiNum(this.state.value)
+                        this.getToLocal() ? this.toFarsiNum(this.getToLocal().value) : this.toFarsiNum(0)
                     ),
                     _react2.default.createElement(
                         'div',
@@ -601,7 +644,8 @@ var ResultBox = function (_React$Component) {
                     null,
                     this.props.days
                 ),
-                _react2.default.createElement('span', { className: this.state.today === false ? 'Result-visual' : "Result-visual today", style: { height: this.state.visual + 'rem' } })
+                _react2.default.createElement('span', { className: this.state.today === false ? 'Result-visual' : "Result-visual today",
+                    style: { height: this.getToLocal() ? this.getToLocal().visual + 'rem' : 0.62 + 'rem' } })
             );
         }
     }]);
@@ -640,8 +684,36 @@ var Dd = new _DateMethods2.default();
 Dd.allData();
 // let m = moment();
 
-var Test = function (_React$Component) {
-    _inherits(Test, _React$Component);
+var todoItem = function (_React$Component) {
+    _inherits(todoItem, _React$Component);
+
+    function todoItem() {
+        _classCallCheck(this, todoItem);
+
+        return _possibleConstructorReturn(this, (todoItem.__proto__ || Object.getPrototypeOf(todoItem)).apply(this, arguments));
+    }
+
+    _createClass(todoItem, [{
+        key: 'done',
+        value: function done() {
+            this.props.done(this.props.todo);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'li',
+                { onClick: this.done },
+                this.props.todo
+            );
+        }
+    }]);
+
+    return todoItem;
+}(_react2.default.Component);
+
+var Test = function (_React$Component2) {
+    _inherits(Test, _React$Component2);
 
     function Test() {
         _classCallCheck(this, Test);
@@ -652,31 +724,28 @@ var Test = function (_React$Component) {
     _createClass(Test, [{
         key: 'render',
         value: function render() {
-            var blaz = Dd.dataDates;
-            // console.log(JSON.stringify(Dd.allData()));
-
-            return _react2.default.createElement('div', null);
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'h1',
+                    null,
+                    'Todos: ',
+                    this.props.todos.lnegth
+                ),
+                _react2.default.createElement(
+                    'ul',
+                    null,
+                    this.state.todos.map(function (todo) {
+                        return _react2.default.createElement('todoItem', { todo: todo, done: this.done });
+                    }.bind(this))
+                )
+            );
         }
     }]);
 
     return Test;
 }(_react2.default.Component);
-
-// return(
-//     <div>
-//     {
-//         months.map((m,i)=>{
-//             <Header month={m}/>
-//             {
-//                 data[i]['days'].map((day,idx)=>{
-//                     <ResultBox key={idx} days={day} ofWeek={data[i]['ofWeek'][idx]}/>
-//                 })
-//             }
-//         })
-//     } 
-//     </div>
-// );
-
 
 exports.default = Test;
 

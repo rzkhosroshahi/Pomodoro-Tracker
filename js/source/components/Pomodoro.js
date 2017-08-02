@@ -33,7 +33,7 @@ class Result extends React.Component {
                                 {                        
                                     data[i]['days'].map((day,idx)=>{
                                         todayCheck(i,idx);
-                                        return( <ResultBox key={idx} days={day} today={today} ofWeek={data[i]['ofWeek'][idx]}/>);
+                                        return( <ResultBox key={idx} cell={i} row={idx} days={day} today={today} ofWeek={data[i]['ofWeek'][idx]}/>);
                                     })
                                 }
                             </div>
